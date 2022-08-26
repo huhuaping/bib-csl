@@ -1,0 +1,99 @@
+---
+title: "CSL样式的word输出测试"
+author: "胡华平"
+date: "`r Sys.Date()`"
+params:
+  year_public: 2022
+output: 
+  bookdown::word_document2: 
+    fig_caption:  true
+    reference_docx: template/create-template-tiny.docx
+    toc: no
+    number_sections: yes
+    global_numbering: true
+bibliography: bib/bib-csl.bib
+#biblio-style: "bib/chinese-gb7714-2005-author-date-new.csl"
+csl: "bib/china-national-standard-gb-t-7714-2015-author-date-zotero.csl"
+link-citations: true
+always_allow_html: yes
+documentclass: article
+classoption: [(landscape,a4paper),(portrait,a4paper)]
+fontsize: "12pt"
+thanks: "感谢经济管理学院数量经济学教研室同仁的大力支持！"
+pagestyle: "headings"
+knit: (function(inputFile, encoding) { 
+      out_dir <- 'public';
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file=file.path(dirname(inputFile), out_dir, 'bib-word-output.docx')) })
+---
+
+
+
+```{r out-source, warning=FALSE, message=FALSE, echo=FALSE}
+source("R/set-global.R")
+source("R/load-pkg.R")
+```
+
+# 前言
+
+# 按出版物类别样式
+
+## 期刊论文
+
+中文期刊《新常态下中国农机工业发展环境分析》[@wang2020a]
+
+外文期刊1“Conceptual issues concerning mediation, interventions and composition”[@vanderweele2009]
+
+## 书籍专著
+
+中文书籍《数据、模型与决策: 管理科学篇》[@daiwei2018]
+
+英文书籍“Data, models, and decisions: the fundamentals of management science”[@bertsimas2004a]
+
+## 报告
+
+The war in Ukraine exposes supply tensions on global agricultural markets: Openness to global trade is needed to cope with the crisis[@glauben2022]
+
+## 学位论文
+
+硕士论文《构建新疆企业投资哈萨克斯坦农业风险的应对机制研究》[@song2013]
+
+## 新闻报纸
+
+中文报纸新闻《科技兴农开花结果》[@qiao2022]
+
+## 会议
+
+会议论文"Document-Level Definition Detection in Scholarly Documents: Existing Models, Error Analyses, and Future Directions"[@kang2020]
+
+## 其他
+
+# 按样式情景
+
+## 两名作者的衔接
+
+这篇外文文献有两位作者[@garg2021]。
+
+这篇中文文献有两位作者[@wu2018]。
+
+## 三位及以上作者的衔接
+
+这篇外文文献有三位作者[@acharya2016]。
+
+这篇外文文献有五位作者[@brown2021]。
+
+这篇中文文献有三位作者[@zhu2021]。
+
+这篇中文文献有五位作者[@zhu2021b]。
+
+## 中文姓名是否分割
+
+（zotero自动抓取）这篇中文文献作者的姓和名是正常分割开来的[@li2021a]。
+
+（谷歌学术搜索）这篇中文文献作者的姓和名之间没有加以分割[@wangyongjian2017]。
+
+
+
+# 参考文献{-}
+
