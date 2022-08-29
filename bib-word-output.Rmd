@@ -4,7 +4,17 @@ author: "胡华平"
 date: "`r Sys.Date()`"
 params:
   year_public: 2022
-output: 
+output:
+  word_document: 
+    fig_caption:  true
+    reference_docx: template/create-template-tiny.docx
+    toc: no
+    number_sections: yes
+  bookdown::html_document2: 
+    fig_caption:  true
+    toc: no
+    number_sections: yes
+    global_numbering: true
   bookdown::word_document2: 
     fig_caption:  true
     reference_docx: template/create-template-tiny.docx
@@ -12,8 +22,7 @@ output:
     number_sections: yes
     global_numbering: true
 bibliography: bib/bib-csl.bib
-#biblio-style: "bib/chinese-gb7714-2005-author-date-new.csl"
-csl: "bib/china-national-standard-gb-t-7714-2015-author-date-zotero.csl"
+csl: bib/china-national-standard-gb-t-7714-2015-author-date-official.csl
 link-citations: true
 always_allow_html: yes
 documentclass: article
@@ -22,10 +31,11 @@ fontsize: "12pt"
 thanks: "感谢经济管理学院数量经济学教研室同仁的大力支持！"
 pagestyle: "headings"
 knit: (function(inputFile, encoding) { 
-      out_dir <- 'public';
-      rmarkdown::render(inputFile,
-                        encoding=encoding, 
-                        output_file=file.path(dirname(inputFile), out_dir, 'bib-word-output.docx')) })
+  outFile <- sub(pattern = "(.*)\\..*$", replacement = "\\1", basename(inputFile));
+  out_dir <- 'public';
+  rmarkdown::render(inputFile,
+                    encoding=encoding,
+                     output_file=file.path(dirname(inputFile), out_dir, outFile)) })
 ---
 
 
@@ -36,6 +46,19 @@ source("R/load-pkg.R")
 ```
 
 # 前言
+
+## 多语言支持问题
+
+- 参看[初始讨论](https://github.com/citation-style-language/schema/issues/63)。proposal: allow locale-specific layouts
+
+- [参看](https://github.com/citation-style-language/schema/issues/133)。Will csl support multiple languages/locates in one style?
+
+> 
+- "et al." (English) = "等." (Chinese)
+- "nth edition" (English) = "第n版" (Chinese)
+
+
+
 
 # 按出版物类别样式
 
@@ -61,7 +84,9 @@ The war in Ukraine exposes supply tensions on global agricultural markets: Openn
 
 ## 新闻报纸
 
-中文报纸新闻《科技兴农开花结果》[@qiao2022]
+中文报纸《经济日报》新闻《科技兴农开花结果》[@qiao2022]
+
+英文报纸《The New York Times》新闻Penn Station Plan Makes a High-Stakes Bet on the Future of Office Work[@haag2022]
 
 ## 会议
 
@@ -79,13 +104,19 @@ The war in Ukraine exposes supply tensions on global agricultural markets: Openn
 
 ## 三位及以上作者的衔接
 
-这篇外文文献有三位作者[@acharya2016]。
+[@acharya2016]这篇外文文献有三位作者。
 
-这篇外文文献有五位作者[@brown2021]。
+[@brown2021]这篇外文文献有五位作者。
 
 这篇中文文献有三位作者[@zhu2021]。
 
 这篇中文文献有五位作者[@zhu2021b]。
+
+## 联合引用
+
+联合引用三篇中文文献（作者数分别为1、2、3）[@li2021a;@qiao2022;@zhu2021]。
+
+联合引用三篇英文文献（作者数分别为1、2、3）[@treurniet2021;@vanderweele2009;@brown2021]。
 
 ## 中文姓名是否分割
 

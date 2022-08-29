@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" delimiter-precedes-last="always" demote-non-dropping-particle="never" name-delimiter=", " initialize-with=" " names-delimiter=". " name-as-sort-order="all" sort-separator=" " default-locale="zh-CN">
   <info>
     <title>China National Standard GB/T 7714-2015 (author-date, 中文)</title>
@@ -14,7 +14,7 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>The Chinese GB/T7714-2015 author-date style</summary>
-    <updated>2021-11-25T18:00:00+08:00</updated>
+    <updated>2021-02-15T03:41:57+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="zh-CN">
@@ -38,7 +38,7 @@
     <choose>
       <if variable="author">
         <names variable="author">
-          <name delimiter-precedes-last="never" initialize-with=" " name-as-sort-order="all" sort-separator=" ">
+          <name delimiter-precedes-last="always" initialize-with=" " name-as-sort-order="all" sort-separator=" ">
             <name-part name="family" text-case="sentence"/>
             <name-part name="given"/>
           </name>
@@ -53,7 +53,7 @@
     <choose>
       <if variable="author">
         <names variable="author">
-          <name form="long" and="text" delimiter-precedes-last="never">
+          <name form="text">
             <name-part name="family" text-case="sentence"/>
           </name>
         </names>
@@ -66,7 +66,7 @@
   <macro name="container-author">
     <names variable="container-author">
       <name>
-        <name-part name="family" text-case="uppercase"/>
+        <name-part name="family" text-case="sentence"/>
         <name-part name="given"/>
       </name>
     </names>
@@ -139,7 +139,7 @@
       <if type="article-journal article-magazine" match="any">
         <text value="J"/>
       </if>
-      <else-if type="article-newspaper">
+      <else-if type="article-newspaper newspaper" match="any">
         <text value="N"/>
       </else-if>
       <else-if type="bill legislation" match="any">
@@ -176,15 +176,11 @@
   </macro>
   <macro name="title">
     <text variable="title" text-case="title"/>
-    <choose>
-        <if type="bill broadcast legal_case legislation patent report song" match="any">
-          <text variable="number" prefix=": "/>
-        </if>
-    </choose>
+    <text variable="number" prefix=": "/>
     <group delimiter="/" prefix="[" suffix="]">
       <text macro="type-code"/>
       <choose>
-        <if variable="URL">
+        <if type="webpage newspaper" variable="URL" match="all">
           <text value="OL"/>
         </if>
       </choose>
@@ -212,8 +208,7 @@
       <key macro="issue-date-year" sort="ascending"/>
     </sort>
     <layout suffix=".">
-      <text macro="author" suffix=", "/>   
-      <text macro="issue-date-year" suffix=". "/>	  
+      <text macro="author" suffix=". "/> 
       <text macro="title"/>
       <choose>
         <if type="book bill chapter legislation paper-conference report thesis" match="any">
@@ -221,7 +216,7 @@
           <choose>
             <if variable="container-title">
               <text value="//"/>
-              <text macro="container-author" suffix=". " text-case="sentence"/>
+              <text macro="container-author" suffix=". "/>
               <text variable="container-title" suffix=". " text-case="title"/>
             </if>
             <else>
@@ -230,15 +225,18 @@
           </choose>
           <text macro="edition" suffix=". "/>
           <text macro="publishing"/>
+          <text macro="issue-date-year" prefix=", "/>
         </if>
         <else-if type="article-journal article-magazine article-newspaper" match="any">
           <group prefix=". ">
             <choose>
               <if variable="container-title">
                 <text variable="container-title" text-case="title"/>
+                <text macro="issue-date-year" prefix=", "/>
                 <text macro="serial-information" prefix=", "/>
               </if>
               <else>
+                <text macro="issue-date-year" prefix=", "/>
                 <text macro="serial-information" suffix=". "/>
                 <text macro="publishing"/>
               </else>
@@ -253,11 +251,18 @@
           <text macro="issued-date" prefix="(" suffix=")"/>
         </else>
       </choose>
-      <text macro="accessed-date"/>
-      <group delimiter=". " prefix=". ">
-        <text variable="URL"/>
-        <text variable="DOI" prefix="DOI:"/>
-      </group>
+	  <choose>
+        <if type="webpage report" match="any">	  
+          <text macro="accessed-date"/>
+		</if>
+	  </choose>
+	  <choose>
+             <if type="webpage" match="any">	  
+              <group delimiter=". " prefix=". ">
+                  <text variable="URL"/>
+              </group>
+		</if>
+	  </choose>
     </layout>
   </bibliography>
 </style>
